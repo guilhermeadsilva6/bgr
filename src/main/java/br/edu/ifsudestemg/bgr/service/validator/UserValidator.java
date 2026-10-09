@@ -6,6 +6,7 @@ import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
@@ -18,6 +19,19 @@ public class UserValidator {
         if (doesTheEmailAlreadyExist(user)) {
             throw new BusinessRuleException("E-mail já cadastrado no sistema.");
         }
+    }
+
+    public void putValidate(User user) {
+       Optional<User> oldUser = repository.findById(user.getId());
+       if (!oldUser.isPresent()) {
+           throw new NoSuchElementException("Usuário não encontrado!");
+       }
+
+       if (!(oldUser.get().getEmail().equals(user.getEmail()))) {
+           if (doesTheEmailAlreadyExist(user)) {
+               throw new BusinessRuleException("E-mail já cadastrado no sistema.");
+           }
+       }
     }
 
     public boolean doesTheEmailAlreadyExist(User user) {

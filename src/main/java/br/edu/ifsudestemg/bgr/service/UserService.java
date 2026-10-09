@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public void updateUser(User user) {
+        validator.putValidate(user);
         repository.save(user);
     }
 
