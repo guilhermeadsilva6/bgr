@@ -51,7 +51,7 @@ public class UserController {
         UUID idUser = UUID.fromString(id);
         Optional<User> user = service.searchForUserById(idUser);
 
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             return new ResponseEntity("Usuário não encontado", HttpStatus.NOT_FOUND);
         }
 
@@ -62,7 +62,7 @@ public class UserController {
     @PutMapping("{id}")
     public ResponseEntity updateUser(@PathVariable("id") String id, @Valid @RequestBody UserRequestDTO requestDTO) {
         UUID idUser = UUID.fromString(id);
-        if (!service.searchForUserById(idUser).isPresent()) {
+        if (service.searchForUserById(idUser).isEmpty()) {
             return new ResponseEntity("Usuário não encontrado!", HttpStatus.NOT_FOUND);
         }
         try {
@@ -78,7 +78,7 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity deleteUser(@PathVariable("id") String id) {
         UUID idUser = UUID.fromString(id);
-        if (!service.searchForUserById(idUser).isPresent()) {
+        if (service.searchForUserById(idUser).isEmpty()) {
             return new ResponseEntity("Usuário não encontrado!", HttpStatus.NOT_FOUND);
         }
         service.deleteUser(idUser);

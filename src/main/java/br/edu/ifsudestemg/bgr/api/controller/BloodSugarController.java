@@ -50,7 +50,7 @@ public class BloodSugarController {
         UUID idBloodSugar = UUID.fromString(id);
         Optional<BloodSugar> bloodSugar = service.searchForBloodSugarRecordById(idBloodSugar);
 
-        if (!bloodSugar.isPresent()) {
+        if (bloodSugar.isEmpty()) {
             return new ResponseEntity("Registro de glicose não encontado", HttpStatus.NOT_FOUND);
         }
 
