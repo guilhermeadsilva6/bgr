@@ -61,12 +61,14 @@ public class BloodSugarController {
     @PutMapping("{id}")
     public ResponseEntity updateBloodSugarRecord(@PathVariable("id") String id, @Valid @RequestBody BloodSugarRequestDTO requestDTO) {
         UUID idBloodSugar = UUID.fromString(id);
-        if (service.searchForBloodSugarRecordById(idBloodSugar).isEmpty()) {
+        Optional<BloodSugar> bloodSugarFound = service.searchForBloodSugarRecordById(idBloodSugar);
+        if (bloodSugarFound.isEmpty()) {
             return new ResponseEntity("Registro de glicose não encontrado!", HttpStatus.NOT_FOUND);
         }
         try {
             BloodSugar bloodSugar = requestDTO.dtoToEntity();
             bloodSugar.setId(idBloodSugar);
+            bloodSugar.setRegistrationDate(bloodSugarFound.get().getRegistrationDate());
             service.updateBloodSugarRecord(bloodSugar);
             return ResponseEntity.ok(bloodSugar);
         } catch (BusinessRuleException e) {
