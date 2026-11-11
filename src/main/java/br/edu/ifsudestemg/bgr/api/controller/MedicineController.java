@@ -84,15 +84,4 @@ public class MedicineController {
         service.deleteMedicationRecord(idMedicine);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-    /*
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteBloodPressureRecord(@PathVariable("id") String id) {
-        UUID idBloodPressure = UUID.fromString(id);
-        if (service.searchForBloodPressureRecordById(idBloodPressure).isEmpty()) {
-            return new ResponseEntity("Registro de pressão não encontrado!", HttpStatus.NOT_FOUND);
-        }
-        service.deleteBloodPressureRecord(idBloodPressure);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }*/
 }
