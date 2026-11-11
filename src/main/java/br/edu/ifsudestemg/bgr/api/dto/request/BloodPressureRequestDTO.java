@@ -20,7 +20,7 @@ public record BloodPressureRequestDTO(
         bloodPressure.setBloodPressureLevel(this.bloodPressureLevel);
 
         User user = new User();
-        user.setId(UUID.fromString(idUser));
+        user.setId(UUID.fromString(this.idUser));
         bloodPressure.setUser(user);
 
         return bloodPressure;

@@ -20,7 +20,7 @@ public record BloodSugarRequestDTO(
         bloodSugar.setGlucoseLevel(this.glucoseLevel);
 
         User user = new User();
-        user.setId(UUID.fromString(idUser));
+        user.setId(UUID.fromString(this.idUser));
         bloodSugar.setUser(user);
 
         return bloodSugar;

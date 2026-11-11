@@ -20,7 +20,7 @@ public record WeightRequestDTO(
         weight.setWeightRecord(this.weightRecord);
 
         User user = new User();
-        user.setId(UUID.fromString(idUser));
+        user.setId(UUID.fromString(this.idUser));
         weight.setUser(user);
 
         return weight;
