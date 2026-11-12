@@ -1,7 +1,7 @@
 package br.edu.ifsudestemg.bgr.api.dto.request;
 
 import br.edu.ifsudestemg.bgr.model.entity.Medicine;
-import br.edu.ifsudestemg.bgr.model.entity.User;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
 import br.edu.ifsudestemg.bgr.model.enums.MeasurementUnit;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ public record MedicineRequestDTO(
         MeasurementUnit measurementUnit,
 
         @NotNull(message = "O registro de medicamento deve estar associado a um usuário!")
-        String idUser
+        String idPatient
 ) {
     public Medicine dtoToEntity() {
         Medicine medicine = new Medicine();
@@ -29,9 +29,9 @@ public record MedicineRequestDTO(
         medicine.setDosage(this.dosage);
         medicine.setMeasurementUnit(this.measurementUnit);
 
-        User user = new User();
-        user.setId(UUID.fromString(this.idUser));
-        medicine.setUser(user);
+        Patient patient = new Patient();
+        patient.setId(UUID.fromString(this.idPatient));
+        medicine.setPatient(patient);
 
         return medicine;
     }

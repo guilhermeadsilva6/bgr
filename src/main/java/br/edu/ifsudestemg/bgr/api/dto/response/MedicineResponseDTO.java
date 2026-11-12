@@ -9,7 +9,7 @@ public record MedicineResponseDTO(String name,
                                   Float dosage,
                                   MeasurementUnit measurementUnit,
                                   LocalDateTime registrationDate,
-                                  String userName) {
+                                  String patientName) {
 
     public static MedicineResponseDTO entityToDto(Medicine medicine) {
         return new MedicineResponseDTO(
@@ -17,7 +17,7 @@ public record MedicineResponseDTO(String name,
                 medicine.getDosage(),
                 medicine.getMeasurementUnit(),
                 medicine.getRegistrationDate(),
-                medicine.getUser().getName()
+                medicine.getPatient().getName()
         );
     }
 

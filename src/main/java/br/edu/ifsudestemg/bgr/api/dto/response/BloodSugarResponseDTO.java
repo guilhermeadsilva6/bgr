@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 public record BloodSugarResponseDTO(
         Integer glucoseLevel,
         LocalDateTime registrationDate,
-        String userName) {
+        String patientName) {
 
     public static BloodSugarResponseDTO entityToDto(BloodSugar bloodSugar) {
         return new BloodSugarResponseDTO(
                 bloodSugar.getGlucoseLevel(),
                 bloodSugar.getRegistrationDate(),
-                bloodSugar.getUser().getName()
+                bloodSugar.getPatient().getName()
         );
     }
 }

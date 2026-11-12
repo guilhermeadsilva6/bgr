@@ -24,6 +24,6 @@ public class WaterIntake {
     private LocalDateTime dateTime;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+    @JoinColumn(name = "id_patient")
+    private Patient patient;
 }

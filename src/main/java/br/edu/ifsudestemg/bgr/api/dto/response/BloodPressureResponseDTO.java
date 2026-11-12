@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 public record BloodPressureResponseDTO(
         Integer bloodPressureLevel,
         LocalDateTime registrationDate,
-        String userName) {
+        String patientName) {
 
     public static BloodPressureResponseDTO entityToDto(BloodPressure bloodPressure) {
         return new BloodPressureResponseDTO(
                 bloodPressure.getBloodPressureLevel(),
                 bloodPressure.getRegistrationDate(),
-                bloodPressure.getUser().getName()
+                bloodPressure.getPatient().getName()
         );
     }
 }

@@ -30,6 +30,6 @@ public class Medicine {
     private LocalDateTime registrationDate;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+    @JoinColumn(name = "id_patient")
+    private Patient patient;
 }

@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 public record WaterIntakeResponseDTO(
         Integer amountMl,
         LocalDateTime dateTime,
-        String userName) {
+        String patientName) {
 
     public static WaterIntakeResponseDTO entityToDto(WaterIntake waterIntake) {
         return new WaterIntakeResponseDTO(
                 waterIntake.getAmountMl(),
                 waterIntake.getDateTime(),
-                waterIntake.getUser().getName()
+                waterIntake.getPatient().getName()
         );
     }
 }

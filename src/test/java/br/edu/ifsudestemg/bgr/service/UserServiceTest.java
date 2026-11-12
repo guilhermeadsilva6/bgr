@@ -1,8 +1,8 @@
 package br.edu.ifsudestemg.bgr.service;
 
-import br.edu.ifsudestemg.bgr.model.entity.User;
-import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
-import br.edu.ifsudestemg.bgr.service.validator.UserValidator;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
+import br.edu.ifsudestemg.bgr.model.repository.PatientRepository;
+import br.edu.ifsudestemg.bgr.service.validator.PatientValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,17 +23,17 @@ import java.util.UUID;
 class UserServiceTest {
 
     @Mock
-    private UserRepository repository;
+    private PatientRepository repository;
 
     @Mock
-    private UserValidator validator;
+    private PatientValidator validator;
 
     @InjectMocks
-    private UserService service;
+    private PatientService service;
 
     @Test
     void shouldCreateUser() {
-        User user = new User();
+        Patient user = new Patient();
         user.setName("User");
         user.setEmail("user@email");
         user.setPassword("password");
@@ -46,13 +46,13 @@ class UserServiceTest {
 
     @Test
     void shouldFindAllUsers() {
-        User user1 = new User();
+        Patient user1 = new Patient();
         user1.setName("User 1");
-        User user2 = new User();
+        Patient user2 = new Patient();
         user2.setName("User 2");
 
         when(repository.findAll()).thenReturn(List.of(user1, user2));
-        List<User> result = service.searchForAllUsers();
+        List<Patient> result = service.searchForAllUsers();
 
         assertEquals(2, result.size());
         assertEquals("User 1", result.get(0).getName());
@@ -63,12 +63,12 @@ class UserServiceTest {
 
     @Test
     void shouldFindUserById() {
-        User user = new User();
+        Patient user = new Patient();
         user.setId(UUID.randomUUID());
         user.setName("User");
 
         when(repository.findById(user.getId())).thenReturn(Optional.of(user));
-        Optional<User> result = service.searchForUserById(user.getId());
+        Optional<Patient> result = service.searchForUserById(user.getId());
 
         assertTrue(result.isPresent());
         assertEquals("User", result.get().getName());
@@ -77,7 +77,7 @@ class UserServiceTest {
 
     @Test
     void shouldUpdateUser() {
-        User user = new User();
+        Patient user = new Patient();
         user.setId(UUID.randomUUID());
 
         service.updateUser(user);
@@ -87,7 +87,7 @@ class UserServiceTest {
 
     @Test
     void shouldDeleteUser() {
-        User user = new User();
+        Patient user = new Patient();
         UUID id = UUID.randomUUID();
         user.setId(id);
 

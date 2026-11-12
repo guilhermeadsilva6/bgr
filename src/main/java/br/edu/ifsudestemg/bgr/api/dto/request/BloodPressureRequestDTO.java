@@ -1,7 +1,7 @@
 package br.edu.ifsudestemg.bgr.api.dto.request;
 
 import br.edu.ifsudestemg.bgr.model.entity.BloodPressure;
-import br.edu.ifsudestemg.bgr.model.entity.User;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -13,15 +13,15 @@ public record BloodPressureRequestDTO(
         Integer bloodPressureLevel,
 
         @NotNull(message = "O registro de pressão deve estar associado a um usuário!")
-        String idUser) {
+        String idPatient) {
 
     public BloodPressure dtoToEntity() {
         BloodPressure bloodPressure = new BloodPressure();
         bloodPressure.setBloodPressureLevel(this.bloodPressureLevel);
 
-        User user = new User();
-        user.setId(UUID.fromString(this.idUser));
-        bloodPressure.setUser(user);
+        Patient patient = new Patient();
+        patient.setId(UUID.fromString(this.idPatient));
+        bloodPressure.setPatient(patient);
 
         return bloodPressure;
     }

@@ -1,8 +1,8 @@
 package br.edu.ifsudestemg.bgr.service.validator;
 
 import br.edu.ifsudestemg.bgr.exception.BusinessRuleException;
-import br.edu.ifsudestemg.bgr.model.entity.User;
-import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
+import br.edu.ifsudestemg.bgr.model.repository.PatientRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,14 +22,14 @@ import static org.mockito.Mockito.*;
 class UserValidatorTest {
 
     @Mock
-    private UserRepository repository;
+    private PatientRepository repository;
 
     @InjectMocks
-    private UserValidator validator;
+    private PatientValidator validator;
 
     @Test
     void shouldAcceptEmailWhenNotRegistered() {
-        User user = new User();
+        Patient user = new Patient();
         user.setEmail("user@email.com");
 
         when(repository.findByEmail("user@email.com"))
@@ -42,10 +42,10 @@ class UserValidatorTest {
 
     @Test
     void shouldThrowAnExceptionForAnExistingEmail() {
-        User user = new User();
+        Patient user = new Patient();
         user.setEmail("user@email");
 
-        when(repository.findByEmail("user@email")).thenReturn(Optional.of(new User()));
+        when(repository.findByEmail("user@email")).thenReturn(Optional.of(new Patient()));
 
         BusinessRuleException e = assertThrows(
                 BusinessRuleException.class,
@@ -58,7 +58,7 @@ class UserValidatorTest {
 
     @Test
     void shouldThrowAnExceptionIfUserNotExists() {
-        User user = new User();
+        Patient user = new Patient();
         UUID id = UUID.randomUUID();
         user.setId(id);
 
@@ -77,17 +77,17 @@ class UserValidatorTest {
     void shouldThrowAnExceptionForAnExistingEmailPut() {
         UUID id = UUID.randomUUID();
 
-        User oldUser = new User();
+        Patient oldUser = new Patient();
         oldUser.setId(id);
         oldUser.setEmail("old@email.com");
 
-        User updatedUser = new User();
+        Patient updatedUser = new Patient();
         updatedUser.setId(id);
         updatedUser.setEmail("existing@email.com");
 
         when(repository.findById(id)).thenReturn(Optional.of(oldUser));
 
-        when(repository.findByEmail("existing@email.com")).thenReturn(Optional.of(new User()));
+        when(repository.findByEmail("existing@email.com")).thenReturn(Optional.of(new Patient()));
 
         BusinessRuleException e = assertThrows(
                 BusinessRuleException.class,
@@ -104,11 +104,11 @@ class UserValidatorTest {
     void shouldAcceptTheEmailChange() {
         UUID id = UUID.randomUUID();
 
-        User oldUser = new User();
+        Patient oldUser = new Patient();
         oldUser.setId(id);
         oldUser.setEmail("old@email.com");
 
-        User updatedUser = new User();
+        Patient updatedUser = new Patient();
         updatedUser.setId(id);
         updatedUser.setEmail("new@email.com");
 
@@ -124,11 +124,11 @@ class UserValidatorTest {
     void shouldNotCheckEmailWhenEmailRemainsTheSame() {
         UUID id = UUID.randomUUID();
 
-        User oldUser = new User();
+        Patient oldUser = new Patient();
         oldUser.setId(id);
         oldUser.setEmail("user@email.com");
 
-        User updatedUser = new User();
+        Patient updatedUser = new Patient();
         updatedUser.setId(id);
         updatedUser.setEmail("user@email.com");
 

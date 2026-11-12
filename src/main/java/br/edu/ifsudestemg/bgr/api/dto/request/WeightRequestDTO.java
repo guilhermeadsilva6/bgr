@@ -1,7 +1,7 @@
 package br.edu.ifsudestemg.bgr.api.dto.request;
 
 import br.edu.ifsudestemg.bgr.model.entity.Weight;
-import br.edu.ifsudestemg.bgr.model.entity.User;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -13,15 +13,15 @@ public record WeightRequestDTO(
         Float weightRecord,
 
         @NotNull(message = "O registro de peso deve estar associado a um usuário!")
-        String idUser) {
+        String idPatient) {
 
     public Weight dtoToEntity() {
         Weight weight = new Weight();
         weight.setWeightRecord(this.weightRecord);
 
-        User user = new User();
-        user.setId(UUID.fromString(this.idUser));
-        weight.setUser(user);
+        Patient patient = new Patient();
+        patient.setId(UUID.fromString(this.idPatient));
+        weight.setPatient(patient);
 
         return weight;
     }

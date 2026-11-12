@@ -2,8 +2,8 @@ package br.edu.ifsudestemg.bgr.service.validator;
 
 import br.edu.ifsudestemg.bgr.exception.BusinessRuleException;
 import br.edu.ifsudestemg.bgr.model.entity.Medicine;
-import br.edu.ifsudestemg.bgr.model.entity.User;
-import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
+import br.edu.ifsudestemg.bgr.model.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,20 +13,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MedicineValidator {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     public void validate(Medicine medicine) {
-        if (medicine.getUser() == null || medicine.getUser().getId() == null) {
-            throw new BusinessRuleException("O registro de medicamento deve estar vinculado a um usuário válido.");
+        if (medicine.getPatient() == null || medicine.getPatient().getId() == null) {
+            throw new BusinessRuleException("O registro de medicamento deve estar vinculado a um paciente válido.");
         }
 
-        if (!isTheUserValid(medicine)) {
-            throw new BusinessRuleException("Usuário inválido");
+        if (!isThePatientValid(medicine)) {
+            throw new BusinessRuleException("Paciente inválido");
         }
     }
 
-    public boolean isTheUserValid(Medicine medicine) {
-        Optional<User> userFound = userRepository.findById(medicine.getUser().getId());
-        return userFound.isPresent();
+    public boolean isThePatientValid(Medicine medicine) {
+        Optional<Patient> patientFound = patientRepository.findById(medicine.getPatient().getId());
+        return patientFound.isPresent();
     }
 }

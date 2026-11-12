@@ -1,6 +1,6 @@
 package br.edu.ifsudestemg.bgr.api.dto.request;
 
-import br.edu.ifsudestemg.bgr.model.entity.User;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
 import br.edu.ifsudestemg.bgr.model.entity.WaterIntake;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,16 +17,16 @@ public record WaterIntakeRequestDTO(
         LocalDateTime dateTime,
 
         @NotNull(message = "O registro de medicamento deve estar associado a um usuário!")
-        String idUser
+        String idPatient
 ) {
     public WaterIntake dtoToEntity() {
         WaterIntake waterIntake = new WaterIntake();
         waterIntake.setAmountMl(this.amountMl);
         waterIntake.setDateTime(this.dateTime);
 
-        User user = new User();
-        user.setId(UUID.fromString(this.idUser));
-        waterIntake.setUser(user);
+        Patient patient = new Patient();
+        patient.setId(UUID.fromString(this.idPatient));
+        waterIntake.setPatient(patient);
 
         return waterIntake;
     }

@@ -2,8 +2,8 @@ package br.edu.ifsudestemg.bgr.service.validator;
 
 import br.edu.ifsudestemg.bgr.exception.BusinessRuleException;
 import br.edu.ifsudestemg.bgr.model.entity.BloodPressure;
-import br.edu.ifsudestemg.bgr.model.entity.User;
-import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
+import br.edu.ifsudestemg.bgr.model.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,20 +13,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BloodPressureValidator {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     public void validate(BloodPressure bloodPressure) {
-        if (bloodPressure.getUser() == null || bloodPressure.getUser().getId() == null) {
-            throw new BusinessRuleException("O registro de pressão deve estar vinculado a um usuário válido.");
+        if (bloodPressure.getPatient() == null || bloodPressure.getPatient().getId() == null) {
+            throw new BusinessRuleException("O registro de pressão deve estar vinculado a um paciente válido.");
         }
 
-        if (!isTheUserValid(bloodPressure)) {
-            throw new BusinessRuleException("Usuário inválido");
+        if (!isThePatientValid(bloodPressure)) {
+            throw new BusinessRuleException("Paciente inválido");
         }
     }
 
-    public boolean isTheUserValid(BloodPressure bloodPressure) {
-        Optional<User> userFound = userRepository.findById(bloodPressure.getUser().getId());
-        return userFound.isPresent();
+    public boolean isThePatientValid(BloodPressure bloodPressure) {
+        Optional<Patient> patientFound = patientRepository.findById(bloodPressure.getPatient().getId());
+        return patientFound.isPresent();
     }
 }

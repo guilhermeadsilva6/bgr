@@ -2,8 +2,8 @@ package br.edu.ifsudestemg.bgr.service.validator;
 
 import br.edu.ifsudestemg.bgr.exception.BusinessRuleException;
 import br.edu.ifsudestemg.bgr.model.entity.WaterIntake;
-import br.edu.ifsudestemg.bgr.model.entity.User;
-import br.edu.ifsudestemg.bgr.model.repository.UserRepository;
+import br.edu.ifsudestemg.bgr.model.entity.Patient;
+import br.edu.ifsudestemg.bgr.model.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,20 +13,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WaterIntakeValidator {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     public void validate(WaterIntake waterIntake) {
-        if (waterIntake.getUser() == null || waterIntake.getUser().getId() == null) {
-            throw new BusinessRuleException("O registro de consumo de água deve estar vinculado a um usuário válido.");
+        if (waterIntake.getPatient() == null || waterIntake.getPatient().getId() == null) {
+            throw new BusinessRuleException("O registro de consumo de água deve estar vinculado a um paciente válido.");
         }
 
-        if (!isTheUserValid(waterIntake)) {
-            throw new BusinessRuleException("Usuário inválido");
+        if (!isThePatientValid(waterIntake)) {
+            throw new BusinessRuleException("Paciente inválido");
         }
     }
 
-    public boolean isTheUserValid(WaterIntake waterIntake) {
-        Optional<User> userFound = userRepository.findById(waterIntake.getUser().getId());
-        return userFound.isPresent();
+    public boolean isThePatientValid(WaterIntake waterIntake) {
+        Optional<Patient> patientFound = patientRepository.findById(waterIntake.getPatient().getId());
+        return patientFound.isPresent();
     }
 }
