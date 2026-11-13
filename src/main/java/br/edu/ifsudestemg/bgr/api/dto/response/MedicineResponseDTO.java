@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public record MedicineResponseDTO(String name,
                                   Float dosage,
                                   MeasurementUnit measurementUnit,
-                                  LocalDateTime registrationDate,
+                                  LocalDateTime registrationDateTime,
                                   String patientName) {
 
     public static MedicineResponseDTO entityToDto(Medicine medicine) {
@@ -16,7 +16,7 @@ public record MedicineResponseDTO(String name,
                 medicine.getName(),
                 medicine.getDosage(),
                 medicine.getMeasurementUnit(),
-                medicine.getRegistrationDate(),
+                medicine.getRegistrationDateTime(),
                 medicine.getPatient().getName()
         );
     }

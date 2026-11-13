@@ -25,9 +25,9 @@ public class Medicine {
     @Column(name = "measurement_unit")
     private MeasurementUnit measurementUnit;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date_time")
     @CreatedDate
-    private LocalDateTime registrationDate;
+    private LocalDateTime registrationDateTime;
 
     @ManyToOne
     @JoinColumn(name = "id_patient")

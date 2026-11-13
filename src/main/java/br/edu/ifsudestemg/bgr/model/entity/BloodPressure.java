@@ -21,9 +21,9 @@ public class BloodPressure {
     @Column(name = "blood_pressure_level")
     private Integer bloodPressureLevel;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date_time")
     @CreatedDate
-    private LocalDateTime registrationDate;
+    private LocalDateTime registrationDateTime;
 
     @ManyToOne
     @JoinColumn(name = "id_patient")

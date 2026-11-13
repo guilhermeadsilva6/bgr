@@ -21,9 +21,9 @@ public class BloodSugar {
     @Column(name = "glucose_level")
     private Integer glucoseLevel;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date_time")
     @CreatedDate
-    private LocalDateTime registrationDate;
+    private LocalDateTime registrationDateTime;
 
     @ManyToOne
     @JoinColumn(name = "id_patient")

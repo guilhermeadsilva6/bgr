@@ -68,7 +68,7 @@ public class BloodSugarController {
         try {
             BloodSugar bloodSugar = requestDTO.dtoToEntity();
             bloodSugar.setId(idBloodSugar);
-            bloodSugar.setRegistrationDate(bloodSugarFound.get().getRegistrationDate());
+            bloodSugar.setRegistrationDateTime(bloodSugarFound.get().getRegistrationDateTime());
             service.updateBloodSugarRecord(bloodSugar);
             return ResponseEntity.ok(bloodSugar);
         } catch (BusinessRuleException e) {

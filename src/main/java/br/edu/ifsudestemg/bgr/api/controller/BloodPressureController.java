@@ -68,7 +68,7 @@ public class BloodPressureController {
         try {
             BloodPressure bloodPressure = requestDTO.dtoToEntity();
             bloodPressure.setId(idBloodPressure);
-            bloodPressure.setRegistrationDate(bloodPressureFound.get().getRegistrationDate());
+            bloodPressure.setRegistrationDateTime(bloodPressureFound.get().getRegistrationDateTime());
             service.updateBloodPressureRecord(bloodPressure);
             return ResponseEntity.ok(bloodPressure);
         } catch (BusinessRuleException e) {

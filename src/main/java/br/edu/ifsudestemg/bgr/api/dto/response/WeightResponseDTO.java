@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 public record WeightResponseDTO(
         Float weightRecord,
-        LocalDateTime registrationDate,
+        LocalDateTime registrationDateTime,
         String patientName) {
 
     public static WeightResponseDTO entityToDto(Weight weight) {
         return new WeightResponseDTO(
                 weight.getWeightRecord(),
-                weight.getRegistrationDate(),
+                weight.getRegistrationDateTime(),
                 weight.getPatient().getName()
         );
     }

@@ -68,7 +68,7 @@ public class WeightController {
         try {
             Weight weight = requestDTO.dtoToEntity();
             weight.setId(idWeight);
-            weight.setRegistrationDate(weightFound.get().getRegistrationDate());
+            weight.setRegistrationDateTime(weightFound.get().getRegistrationDateTime());
             service.updateWeightRecord(weight);
             return ResponseEntity.ok(weight);
         } catch (BusinessRuleException e) {

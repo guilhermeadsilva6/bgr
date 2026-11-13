@@ -67,7 +67,7 @@ public class MedicineController {
         try {
             Medicine medicine = requestDTO.dtoToEntity();
             medicine.setId(idMedicine);
-            medicine.setRegistrationDate(medicineFound.get().getRegistrationDate());
+            medicine.setRegistrationDateTime(medicineFound.get().getRegistrationDateTime());
             service.updateMedicationRecord(medicine);
             return ResponseEntity.ok(medicine);
         } catch (BusinessRuleException e) {

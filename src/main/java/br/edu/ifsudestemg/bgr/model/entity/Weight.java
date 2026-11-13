@@ -20,9 +20,9 @@ public class Weight {
     @Column(name = "weight_record")
     private Float weightRecord;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date_time")
     @CreatedDate
-    private LocalDateTime registrationDate;
+    private LocalDateTime registrationDateTime;
 
     @ManyToOne
     @JoinColumn(name = "id_patient")
