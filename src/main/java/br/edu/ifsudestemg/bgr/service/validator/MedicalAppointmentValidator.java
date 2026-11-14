@@ -77,48 +77,46 @@ public class MedicalAppointmentValidator {
 
     public boolean validateAppointmentStatusChange(MedicalAppointment medicalAppointment) {
         Optional<MedicalAppointment> oldMedicalAppointment = repository.findById(medicalAppointment.getId());
-        String result = "";
-        if (oldMedicalAppointment.isPresent()) {
-            MedicalAppointmentStatus oldStatus = oldMedicalAppointment.get().getStatus();
-            MedicalAppointmentStatus newStatus = medicalAppointment.getStatus();
+        if (oldMedicalAppointment.isEmpty()) {
+            throw new BusinessRuleException("Consulta médica inexistente!");
+        }
 
-            if (oldStatus == newStatus) {
-                    result = "true";
+        String result = "";
+        MedicalAppointmentStatus oldStatus = oldMedicalAppointment.get().getStatus();
+        MedicalAppointmentStatus newStatus = medicalAppointment.getStatus();
+
+        if (oldStatus == newStatus) {
+            result = "true";
+        } else {
+            if (oldStatus == MedicalAppointmentStatus.CANCELED ||
+                    oldStatus == MedicalAppointmentStatus.COMPLETED ||
+                    oldStatus == MedicalAppointmentStatus.MISSED) {
+                result = "false";
             } else {
-                if (oldStatus == MedicalAppointmentStatus.CANCELED ||
-                        oldStatus == MedicalAppointmentStatus.COMPLETED ||
-                        oldStatus == MedicalAppointmentStatus.MISSED) {
-                    result = "false";
-                } else {
-                    if (oldStatus == MedicalAppointmentStatus.SCHEDULED) {
-                        if (newStatus == MedicalAppointmentStatus.CANCELED ||
-                                newStatus == MedicalAppointmentStatus.CONFIRMED) {
-                            result = "true";
-                        }
-                        else {
-                            result = "false";
-                        }
+                if (oldStatus == MedicalAppointmentStatus.SCHEDULED) {
+                    if (newStatus == MedicalAppointmentStatus.CANCELED ||
+                            newStatus == MedicalAppointmentStatus.CONFIRMED) {
+                        result = "true";
                     } else {
-                        if (newStatus == MedicalAppointmentStatus.SCHEDULED) {
-                            result = "false";
+                        result = "false";
+                    }
+                } else {
+                    if (newStatus == MedicalAppointmentStatus.SCHEDULED) {
+                        result = "false";
+                    } else {
+                        if (newStatus == MedicalAppointmentStatus.CANCELED) {
+                            result = "true";
                         } else {
-                            if (newStatus == MedicalAppointmentStatus.CANCELED) {
-                                result = "true";
+                            LocalDateTime appointmentDateTime = oldMedicalAppointment.get().getDateTime();
+                            if (appointmentDateTime.isAfter(LocalDateTime.now())) {
+                                result = "false";
                             } else {
-                                LocalDateTime appointmentDateTime = oldMedicalAppointment.get().getDateTime();
-                                if (appointmentDateTime.isAfter(LocalDateTime.now())) {
-                                    result = "false";
-                                } else {
-                                    result = "true";
-                                }
+                                result = "true";
                             }
                         }
                     }
                 }
             }
-        }
-        else {
-            return false;
         }
         return result.equals("true");
     }
