@@ -31,7 +31,7 @@ public class MedicalAppointmentService {
     }
 
     public void updateMedicalAppointment(MedicalAppointment medicalAppointment) {
-        validator.validate(medicalAppointment);
+        validator.putValidate(medicalAppointment);
         repository.save(medicalAppointment);
     }
 
